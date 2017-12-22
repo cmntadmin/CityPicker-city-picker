@@ -32,7 +32,7 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.0.0'
     testCompile 'junit:junit:4.12'
-    compile files('libs/gson-2.3.1.jar')
+    provided files('libs/gson-2.3.1.jar')
 }
 
 
