@@ -84,7 +84,7 @@ public abstract class CityPickerActivity extends CheckPermissionsActivity implem
     }
 
     private List<Area> getCitys() {
-        List<City> provincesList = AreaUtil.getAllProvinces();
+        List<City> provincesList = AreaUtil.getAllProvinces(this);
         List<Area> citysList = new ArrayList<>();
         for (int i = 0; i < provincesList.size(); i++) {
             citysList.add(provincesList.get(i).getArea());

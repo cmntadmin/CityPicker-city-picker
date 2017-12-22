@@ -1,8 +1,9 @@
 package com.zaaach.citypicker.utils;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.zaaach.citypicker.application.App;
 import com.zaaach.citypicker.model.Area;
 import com.zaaach.citypicker.model.City;
 import com.zaaach.citypicker.model.Provinces;
@@ -11,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -34,14 +34,14 @@ public class AreaUtil {
     /**
      * 初始化区域数据
      */
-    private static void initAreaData() throws IOException {
+    public static void initAreaData(Context context) throws IOException {
 
         if (areaMap.size() > 1024) {
             return;
         }
 
         //init
-        InputStream inputStream = App.getContext().getAssets().open(FILE_NAME);
+        InputStream inputStream = context.getAssets().open(FILE_NAME);
         Gson gson = new Gson();
         List<Area> tempList = gson.fromJson(
                 new com.google.gson.stream.JsonReader(new InputStreamReader(inputStream)),
@@ -61,10 +61,10 @@ public class AreaUtil {
      *
      * @return
      */
-    public static List<City> getAllProvinces() {
+    public static List<City> getAllProvinces(Context context) {
         List<City> cityses = new ArrayList<>();
         try {
-            initAreaData();
+            initAreaData(context);
         } catch (IOException e) {
             e.printStackTrace();
         }
