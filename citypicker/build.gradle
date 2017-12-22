@@ -32,7 +32,6 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.0.0'
     testCompile 'junit:junit:4.12'
-    compile files('libs/AMap_Location_V3.5.0_20170731.jar')
     compile files('libs/gson-2.3.1.jar')
 }
 

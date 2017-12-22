@@ -1,13 +1,12 @@
 package com.zaaach.citypickerdemo;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.zaaach.citypicker.CityPickerActivity;
-import com.zaaach.citypicker.LocationCityActivity;
 import com.zaaach.citypicker.model.Area;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivityForResult(new Intent(MainActivity.this, LocationCityActivity.class),REQUEST_CODE_PICK_CITY);
+                startActivityForResult(new Intent(MainActivity.this, CityPickerActivity.class),REQUEST_CODE_PICK_CITY);
 
 //                        startActivityForResult(new Intent(MainActivity.this, CityPickerActivity.class),
 //                        REQUEST_CODE_PICK_CITY);
