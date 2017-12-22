@@ -1,7 +1,6 @@
 package com.zaaach.citypicker;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -17,17 +16,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationListener;
 import com.zaaach.citypicker.adapter.CityListAdapter;
 import com.zaaach.citypicker.adapter.ResultListAdapter;
 import com.zaaach.citypicker.model.Area;
 import com.zaaach.citypicker.model.City;
 import com.zaaach.citypicker.model.LocateState;
 import com.zaaach.citypicker.utils.AreaUtil;
-import com.zaaach.citypicker.utils.StringUtils;
 import com.zaaach.citypicker.view.SideLetterBar;
 
 import java.util.ArrayList;
