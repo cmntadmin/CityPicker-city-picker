@@ -26,9 +26,11 @@ public class HotCityGridAdapter extends BaseAdapter {
         mCities.add(new Area("110100", "北京市", ""));
         mCities.add(new Area("310100", "上海市", ""));
         mCities.add(new Area("440100", "广州市", ""));
-        mCities.add(new Area("420100", "武汉市", ""));
         mCities.add(new Area("440300", "深圳市", ""));
+        mCities.add(new Area("420100", "武汉市", ""));
         mCities.add(new Area("120100", "天津市", ""));
+        mCities.add(new Area("610100", "西安市", ""));
+        mCities.add(new Area("320100", "南京市", ""));
         mCities.add(new Area("330100", "杭州市", ""));
         mCities.add(new Area("510100", "成都市", ""));
         mCities.add(new Area("500100", "重庆市", ""));
