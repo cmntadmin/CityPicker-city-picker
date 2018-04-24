@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.zaaach.citypicker.R;
 
 public class SideLetterBar extends View {
-    private static final String[] b = {"定位", "热门", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+    private static final String[] b = {"!", "#", "$", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
     private int choose = -1;
     private Paint paint = new Paint();
     private boolean showBg = false;
@@ -33,9 +33,10 @@ public class SideLetterBar extends View {
 
     /**
      * 设置悬浮的textview
+     *
      * @param overlay
      */
-    public void setOverlay(TextView overlay){
+    public void setOverlay(TextView overlay) {
         this.overlay = overlay;
     }
 
@@ -47,7 +48,7 @@ public class SideLetterBar extends View {
             canvas.drawColor(Color.TRANSPARENT);
         }
 
-        int height = getHeight();
+        int height = getHeight() / 3 * 2;
         int width = getWidth();
         int singleHeight = height / b.length;
         for (int i = 0; i < b.length; i++) {
@@ -59,7 +60,7 @@ public class SideLetterBar extends View {
 //                paint.setFakeBoldText(true);  //加粗
             }
             float xPos = width / 2 - paint.measureText(b[i]) / 2;
-            float yPos = singleHeight * i + singleHeight;
+            float yPos = singleHeight * i + singleHeight + (height / 6);
             canvas.drawText(b[i], xPos, yPos, paint);
             paint.reset();
         }
@@ -72,8 +73,9 @@ public class SideLetterBar extends View {
         final float y = event.getY();
         final int oldChoose = choose;
         final OnLetterChangedListener listener = onLetterChangedListener;
-        final int c = (int) (y / getHeight() * b.length);
+//        final int c = (int) (y / getHeight() * b.length);
 
+        final int c = (int) ((y - getHeight() / 6) / (getHeight() - getHeight() / 3) * b.length);
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 showBg = true;
@@ -82,7 +84,7 @@ public class SideLetterBar extends View {
                         listener.onLetterChanged(b[c]);
                         choose = c;
                         invalidate();
-                        if (overlay != null){
+                        if (overlay != null) {
                             overlay.setVisibility(VISIBLE);
                             overlay.setText(b[c]);
                         }
@@ -96,7 +98,7 @@ public class SideLetterBar extends View {
                         listener.onLetterChanged(b[c]);
                         choose = c;
                         invalidate();
-                        if (overlay != null){
+                        if (overlay != null) {
                             overlay.setVisibility(VISIBLE);
                             overlay.setText(b[c]);
                         }
@@ -107,7 +109,7 @@ public class SideLetterBar extends View {
                 showBg = false;
                 choose = -1;
                 invalidate();
-                if (overlay != null){
+                if (overlay != null) {
                     overlay.setVisibility(GONE);
                 }
                 break;

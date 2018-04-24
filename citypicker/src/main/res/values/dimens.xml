@@ -3,7 +3,15 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="side_letter_bar_letter_size">13sp</dimen>
+    <dimen name="side_letter_bar_letter_size">11sp</dimen>
     <dimen name="side_letter_bar_width">36dp</dimen>
     <dimen name="city_text_size">16sp</dimen>
+
+
+    <dimen name="title_height">43dp</dimen>
+    <!--  标题栏两边图标的间距 -->
+    <dimen name="title_margin_left">16dp</dimen>
+    <dimen name="title_margin_right">16dp</dimen>
+    <dimen name="text_size_x7">18sp</dimen>
+    <dimen name="text_size_x5">13sp</dimen>
 </resources>

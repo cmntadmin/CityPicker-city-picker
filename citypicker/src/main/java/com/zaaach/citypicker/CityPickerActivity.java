@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.zaaach.citypicker.adapter.CityListAdapter;
 import com.zaaach.citypicker.adapter.ResultListAdapter;
+import com.zaaach.citypicker.manager.CityPickerManager;
 import com.zaaach.citypicker.model.Area;
 import com.zaaach.citypicker.model.City;
 import com.zaaach.citypicker.model.LocateState;
@@ -32,7 +33,7 @@ import java.util.List;
 /**
  * Author Bro0cL on 2016/12/16.
  */
-public abstract class CityPickerActivity extends CheckPermissionsActivity implements View.OnClickListener, CheckPermissionsListener {
+public abstract class CityPickerActivity extends CheckPermissionsActivity implements View.OnClickListener, CheckPermissionsListener{
     public static final String KEY_PICKED_CITY = "picked_city";
 
     private ListView mListView;
@@ -40,12 +41,13 @@ public abstract class CityPickerActivity extends CheckPermissionsActivity implem
     private SideLetterBar mLetterBar;
     private EditText searchBox;
     private ImageView clearBtn;
-    private TextView cancelBtn;
     private ViewGroup emptyView;
 
     private CityListAdapter mCityAdapter;
     private ResultListAdapter mResultAdapter;
     private List<Area> mResultArea;
+
+    private ImageView back;
 
 
     @Override
@@ -66,7 +68,7 @@ public abstract class CityPickerActivity extends CheckPermissionsActivity implem
         }
     }
 
-    private List<Area> getAreaByName(String name) {
+    public List<Area> getAreaByName(String name) {
         List<Area> cityListArea = getCitys();
         List<Area> areaListByName = new ArrayList<>();
         for (int i = 0; i < cityListArea.size(); i++) {
@@ -77,7 +79,7 @@ public abstract class CityPickerActivity extends CheckPermissionsActivity implem
         return areaListByName;
     }
 
-    private List<Area> getCitys() {
+    public List<Area> getCitys() {
         List<City> provincesList = AreaUtil.getAllProvinces(this);
         List<Area> citysList = new ArrayList<>();
         for (int i = 0; i < provincesList.size(); i++) {
@@ -108,6 +110,15 @@ public abstract class CityPickerActivity extends CheckPermissionsActivity implem
     }
 
     private void initView() {
+
+        back = (ImageView) findViewById(R.id.include_normal_title_iv_left);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         mListView = (ListView) findViewById(R.id.listview_all_city);
         mListView.setAdapter(mCityAdapter);
 
@@ -165,10 +176,8 @@ public abstract class CityPickerActivity extends CheckPermissionsActivity implem
         });
 
         clearBtn = (ImageView) findViewById(R.id.iv_search_clear);
-        cancelBtn = (TextView) findViewById(R.id.tv_search_cancel);
 
         clearBtn.setOnClickListener(this);
-        cancelBtn.setOnClickListener(this);
     }
 
     private void backWithData(Area city) {
@@ -187,8 +196,6 @@ public abstract class CityPickerActivity extends CheckPermissionsActivity implem
             emptyView.setVisibility(View.GONE);
             mResultListView.setVisibility(View.GONE);
             mResultArea = null;
-        } else if (i == R.id.tv_search_cancel) {
-            finish();
         }
     }
 
@@ -209,5 +216,7 @@ public abstract class CityPickerActivity extends CheckPermissionsActivity implem
 
 
     public abstract void location();
+
+    public abstract void finish();
 
 }

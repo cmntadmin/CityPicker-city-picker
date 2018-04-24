@@ -6,6 +6,47 @@
     android:orientation="vertical"
     android:background="@color/cp_content_bg">
 
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@color/main_color"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height">
+        <!--
+            android:clickable="true"
+            可以添加selector的资源
+        -->
+        <ImageView
+            android:id="@+id/include_normal_title_iv_left"
+            android:padding="@dimen/title_margin_left"
+            android:clickable="true"
+            android:scaleType="center"
+            android:src="@mipmap/close"
+            android:paddingRight="16dp"
+            android:background="?android:attr/selectableItemBackground"
+
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+
+        <TextView
+            android:id="@+id/include_normal_title_tv_title"
+            android:layout_gravity="center"
+            android:textColor="@color/wihte"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_x7"
+            android:text="选择城市"
+            android:maxLength="14"
+            android:ellipsize="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+
+    </FrameLayout>
+
     <include layout="@layout/cp_view_search"/>
 
     <RelativeLayout

@@ -13,6 +13,7 @@
         android:layout_height="34dp"
         android:layout_weight="1"
         android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:background="@drawable/cp_search_box_bg">
         <ImageView
             android:layout_width="wrap_content"
@@ -34,7 +35,7 @@
             android:maxLines="1"
             android:inputType="text"
             android:textColor="@color/cp_gray"
-            android:textSize="15sp"
+            android:textSize="14sp"
             tools:ignore="RtlHardcoded" />
 
         <ImageView
@@ -47,15 +48,4 @@
             android:visibility="gone"
             tools:ignore="ContentDescription" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_search_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:text="@string/cp_btn_cancel"
-        android:textSize="16sp"
-        android:textColor="@color/cp_gray"/>
 </LinearLayout>

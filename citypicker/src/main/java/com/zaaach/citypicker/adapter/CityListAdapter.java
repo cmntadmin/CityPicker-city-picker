@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.zaaach.citypicker.R;
+import com.zaaach.citypicker.entity.AreaVo;
 import com.zaaach.citypicker.model.Area;
 import com.zaaach.citypicker.model.LocateState;
 import com.zaaach.citypicker.utils.PinyinUtils;
@@ -23,7 +24,7 @@ import java.util.List;
  * author zaaach on 2016/1/26.
  */
 public class CityListAdapter extends BaseAdapter {
-    private static final int VIEW_TYPE_COUNT = 3;
+    private static final int VIEW_TYPE_COUNT = 4;
 
     private Context mContext;
     private LayoutInflater inflater;
@@ -33,6 +34,10 @@ public class CityListAdapter extends BaseAdapter {
     private OnCityClickListener onCityClickListener;
     private int locateState = LocateState.LOCATING;
     private String locatedCity;
+    private List<AreaVo> list;
+
+    private HistoryCityGridAdapter historyGridAdapter;
+    private AreaHistoryData areaHistoryData = new AreaHistoryData();
 
     public CityListAdapter(Context mContext, List<Area> mCities) {
         this.mContext = mContext;
@@ -42,7 +47,8 @@ public class CityListAdapter extends BaseAdapter {
             mCities = new ArrayList<>();
         }
         mCities.add(0, new Area("定位", "0"));
-        mCities.add(1, new Area("热门", "1"));
+        mCities.add(1, new Area("最近访问城市", "1"));
+        mCities.add(2, new Area("热门", "2"));
         int size = mCities.size();
         letterIndexes = new HashMap<>();
         sections = new String[size];
@@ -56,6 +62,7 @@ public class CityListAdapter extends BaseAdapter {
                 sections[index] = currentLetter;
             }
         }
+        list = areaHistoryData.getHistoryArea();
     }
 
     /**
@@ -109,6 +116,8 @@ public class CityListAdapter extends BaseAdapter {
     public View getView(final int position, View view, ViewGroup parent) {
         CityViewHolder holder;
         int viewType = getItemViewType(position);
+
+        historyGridAdapter = new HistoryCityGridAdapter(mContext, list);
         switch (viewType) {
             case 0:     //定位
                 view = inflater.inflate(R.layout.cp_view_locate_city, parent, false);
@@ -123,6 +132,20 @@ public class CityListAdapter extends BaseAdapter {
                         break;
                     case LocateState.SUCCESS:
                         state.setText(locatedCity);
+                        if (null != mCities && mCities.size() > 0) {
+                            for (int i = 0; i < mCities.size(); i++) {
+                                Area area = mCities.get(i);
+                                if (area.getName().contains(locatedCity)) {
+                                    areaHistoryData.addHistoryArea(area);
+                                    list = areaHistoryData.getHistoryArea();
+                                    if (null != historyGridAdapter) {
+                                        historyGridAdapter.notifyDataSetChanged();
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+
                         break;
                 }
                 container.setOnClickListener(new View.OnClickListener() {
@@ -152,7 +175,31 @@ public class CityListAdapter extends BaseAdapter {
                     }
                 });
                 break;
-            case 1:     //热门
+            case 1: //访问记录
+                view = inflater.inflate(R.layout.cp_view_history_city, parent, false);
+                WrapHeightGridView historyView = (WrapHeightGridView) view.findViewById(R.id.gridview_history_city);
+                historyView.setAdapter(historyGridAdapter);
+                historyView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        if (onCityClickListener != null) {
+                            AreaVo areaVo = historyGridAdapter.getItem(position);
+                            if (null != areaVo) {
+                                Area area = new Area();
+                                area.setSequence(areaVo.getSequence());
+                                area.setName(areaVo.getName());
+                                area.setId(areaVo.getArea_id());
+                                area.setPinyin(areaVo.getPinyin());
+                                area.setParent_id(areaVo.getParent_id());
+                                areaHistoryData.addHistoryArea(area);
+                                onCityClickListener.onCityClick(area);
+                            }
+                        }
+                    }
+                });
+
+                break;
+            case 2:     //热门
                 view = inflater.inflate(R.layout.cp_view_hot_city, parent, false);
                 WrapHeightGridView gridView = (WrapHeightGridView) view.findViewById(R.id.gridview_hot_city);
                 final HotCityGridAdapter hotCityGridAdapter = new HotCityGridAdapter(mContext);
@@ -161,12 +208,13 @@ public class CityListAdapter extends BaseAdapter {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         if (onCityClickListener != null) {
+                            areaHistoryData.addHistoryArea(hotCityGridAdapter.getItem(position));
                             onCityClickListener.onCityClick(hotCityGridAdapter.getItem(position));
                         }
                     }
                 });
                 break;
-            case 2:     //所有
+            case 3:     //所有
                 if (view == null) {
                     view = inflater.inflate(R.layout.cp_item_city_listview, parent, false);
                     holder = new CityViewHolder();
@@ -191,6 +239,7 @@ public class CityListAdapter extends BaseAdapter {
                         @Override
                         public void onClick(View v) {
                             if (onCityClickListener != null) {
+                                areaHistoryData.addHistoryArea(mCities.get(position));
                                 onCityClickListener.onCityClick(mCities.get(position));
                             }
                         }
@@ -206,8 +255,9 @@ public class CityListAdapter extends BaseAdapter {
         TextView name;
     }
 
-    public void setOnCityClickListener(OnCityClickListener listener) {
-        this.onCityClickListener = listener;
+    public void setOnCityClickListener(OnCityClickListener onCityClickListener) {
+        this.onCityClickListener = onCityClickListener;
+
     }
 
     public interface OnCityClickListener {
@@ -215,4 +265,6 @@ public class CityListAdapter extends BaseAdapter {
 
         void onLocateClick();
     }
+
+
 }

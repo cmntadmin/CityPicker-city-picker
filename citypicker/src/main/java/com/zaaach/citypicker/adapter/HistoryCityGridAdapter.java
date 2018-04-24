@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.zaaach.citypicker.R;
+import com.zaaach.citypicker.entity.AreaVo;
 import com.zaaach.citypicker.model.Area;
 
 import java.util.ArrayList;
@@ -16,24 +17,14 @@ import java.util.List;
 /**
  * author zaaach on 2016/1/26.
  */
-public class HotCityGridAdapter extends BaseAdapter {
+public class HistoryCityGridAdapter extends BaseAdapter {
     private Context mContext;
-    private List<Area> mCities;
+    private List<AreaVo> mCities;
 
-    public HotCityGridAdapter(Context context) {
+    public HistoryCityGridAdapter(Context context, List<AreaVo> list) {
         this.mContext = context;
         mCities = new ArrayList<>();
-        mCities.add(new Area("110100", "北京市", "110000", "b", "beijing"));
-        mCities.add(new Area("310100", "上海市", "310000", "s", "shanghai"));
-        mCities.add(new Area("440100", "广州市", "440000", "g", "guangzhou"));
-        mCities.add(new Area("440300", "深圳市", "440000", "s", "shenzhen"));
-        mCities.add(new Area("420100", "武汉市", "420000", "w", "wuhan"));
-        mCities.add(new Area("120100", "天津市", "120000", "t", "tianjin"));
-        mCities.add(new Area("610100", "西安市", "610000", "x", "xian"));
-        mCities.add(new Area("320100", "南京市", "320000", "n", "nanjing"));
-        mCities.add(new Area("330100", "杭州市", "330000", "h", "hangzhou"));
-        mCities.add(new Area("510100", "成都市", "510000", "c", "chengdu"));
-        mCities.add(new Area("500100", "重庆市", "500000", "c", "chongqing"));
+        mCities = list;
     }
 
     @Override
@@ -42,7 +33,7 @@ public class HotCityGridAdapter extends BaseAdapter {
     }
 
     @Override
-    public Area getItem(int position) {
+    public AreaVo getItem(int position) {
         return mCities == null ? null : mCities.get(position);
     }
 
