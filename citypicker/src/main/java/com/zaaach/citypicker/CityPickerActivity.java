@@ -115,7 +115,7 @@ public abstract class CityPickerActivity extends CheckPermissionsActivity implem
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                CityPickerActivity.this.finish();
             }
         });
 
@@ -216,7 +216,4 @@ public abstract class CityPickerActivity extends CheckPermissionsActivity implem
 
 
     public abstract void location();
-
-    public abstract void finish();
-
 }
