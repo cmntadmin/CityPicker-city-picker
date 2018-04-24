@@ -19,9 +19,11 @@ public class Area implements Serializable {
     private String id;
     private String name;
     private String parent_id;
-    private Object sequence;
+    private String sequence;
     private String Pinyin;
 
+    public Area() {
+    }
 
     public Area(String name, String pinyin) {
         this.name = name;
@@ -31,6 +33,15 @@ public class Area implements Serializable {
     public Area(String id, String name, String pinyin) {
         this.id = id;
         this.name = name;
+        Pinyin = pinyin;
+    }
+
+    
+    public Area(String id, String name, String parent_id, String sequence, String pinyin) {
+        this.id = id;
+        this.name = name;
+        this.parent_id = parent_id;
+        this.sequence = sequence;
         Pinyin = pinyin;
     }
 
@@ -66,11 +77,11 @@ public class Area implements Serializable {
         this.parent_id = parent_id;
     }
 
-    public Object getSequence() {
+    public String getSequence() {
         return sequence;
     }
 
-    public void setSequence(Object sequence) {
+    public void setSequence(String sequence) {
         this.sequence = sequence;
     }
 
