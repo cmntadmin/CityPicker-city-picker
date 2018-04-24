@@ -18,7 +18,7 @@ public class AreaVo extends Model {
     @Column(name = "parent_id")
     private String parent_id;
     @Column(name = "sequence")
-    private Object sequence;
+    private String sequence;
     @Column(name = "pinyin")
     private String pinyin;
 
@@ -28,7 +28,7 @@ public class AreaVo extends Model {
     public AreaVo() {
     }
 
-    public AreaVo(String area_id, String name, String parent_id, Object sequence, String pinyin) {
+    public AreaVo(String area_id, String name, String parent_id, String sequence, String pinyin) {
         this.area_id = area_id;
         this.name = name;
         this.parent_id = parent_id;
@@ -60,11 +60,11 @@ public class AreaVo extends Model {
         this.parent_id = parent_id;
     }
 
-    public Object getSequence() {
+    public String getSequence() {
         return sequence;
     }
 
-    public void setSequence(Object sequence) {
+    public void setSequence(String sequence) {
         this.sequence = sequence;
     }
 

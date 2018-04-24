@@ -36,7 +36,7 @@ public class Area implements Serializable {
         Pinyin = pinyin;
     }
 
-    
+
     public Area(String id, String name, String parent_id, String sequence, String pinyin) {
         this.id = id;
         this.name = name;
